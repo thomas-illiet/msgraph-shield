@@ -1,4 +1,4 @@
-﻿using GraphShield.Data.Model.Linkings;
+﻿using GraphShield.Data.Model.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
