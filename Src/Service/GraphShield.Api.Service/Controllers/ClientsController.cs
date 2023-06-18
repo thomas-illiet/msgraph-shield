@@ -36,7 +36,7 @@ namespace GraphShield.Api.Service.Controllers
         [HttpGet]
         [SwaggerOperation(Tags = new[] { "🐤 Client Management" })]
         [ProducesResponseType(typeof(PagedResponse<ClientDto>), 200)]
-        public async Task<IActionResult> ListProfileAsync([FromQuery] SieveModel request, CancellationToken cancellationToken)
+        public async Task<IActionResult> ListClientAsync([FromQuery] SieveModel request, CancellationToken cancellationToken)
         {
             var entities = await _clientData.ListAsync(request, cancellationToken);
             return Ok(entities);
@@ -51,7 +51,7 @@ namespace GraphShield.Api.Service.Controllers
         [SwaggerOperation(Tags = new[] { "🐤 Client Management" })]
         [ProducesResponseType(typeof(ClientDto), 200)]
         [ProducesResponseType(typeof(NotFoundDto), 404)]
-        public async Task<IActionResult> GetProfileAsync(Guid clientId, CancellationToken cancellationToken)
+        public async Task<IActionResult> GetClientAsync(Guid clientId, CancellationToken cancellationToken)
         {
             var entity = await _clientData.GetAsync(clientId, cancellationToken);
             if (entity == null)
@@ -59,6 +59,7 @@ namespace GraphShield.Api.Service.Controllers
 
             return Ok(entity);
         }
+
 
         /// <summary>
         /// Deletes a client by its identifier.
@@ -69,7 +70,7 @@ namespace GraphShield.Api.Service.Controllers
         [SwaggerOperation(Tags = new[] { "🐤 Client Management" })]
         [ProducesResponseType(204)]
         [ProducesResponseType(typeof(NotFoundDto), 404)]
-        public async Task<IActionResult> DeleteProfileAsync(Guid clientId, CancellationToken cancellationToken)
+        public async Task<IActionResult> DeleteClientAsync(Guid clientId, CancellationToken cancellationToken)
         {
             await _clientData.DeleteAsync(clientId, cancellationToken);
             return NoContent();
