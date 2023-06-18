@@ -1,7 +1,7 @@
 name: .NET Core
 
 env:
-  DOTNET_VERSION: '7.0.0' 
+  DOTNET_VERSION: '7.0.x' 
 
 on:
   push:
