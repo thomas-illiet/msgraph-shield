@@ -17,6 +17,7 @@ namespace GraphShield.Api.Service.Plumbings.Data.Validators
             RuleFor(x => x.DisplayName).Length(0, 128);
             RuleFor(x => x.Method).NotEmpty();
             RuleFor(x => x.Pattern).Length(4, 256);
+            RuleFor(x => x.Version).NotEmpty();
             RuleFor(x => x.Type).NotEmpty();
         }
     }

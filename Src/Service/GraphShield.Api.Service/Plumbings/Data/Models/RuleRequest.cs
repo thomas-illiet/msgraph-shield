@@ -1,4 +1,5 @@
-﻿using GraphShield.Data.Model.Enums;
+﻿using GraphShield.Data.Model.Entities;
+using GraphShield.Data.Model.Enums;
 
 namespace GraphShield.Api.Service.Plumbings.Data.Models
 {
@@ -28,8 +29,23 @@ namespace GraphShield.Api.Service.Plumbings.Data.Models
         public string Pattern { get; set; }
 
         /// <summary>
+        /// Gets or sets the remote content of the rule.
+        /// </summary>
+        public RuleContent? Remote { get; set; }
+
+        /// <summary>
+        /// Gets or sets the request content of the rule.
+        /// </summary>
+        public RuleContent? Request { get; set; }
+
+        /// <summary>
         /// Gets or sets the type of the rule.
         /// </summary>
-        public RuleType Type { get; set; }
+        public RuleType? Type { get; set; }
+
+        /// <summary>
+        /// Gets or sets the version of the rule.
+        /// </summary>
+        public string Version { get; set; }
     }
 }

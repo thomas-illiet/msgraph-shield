@@ -52,6 +52,11 @@ namespace GraphShield.Api.Service.Plumbings.Data.Models
         #region Metadata
 
         /// <summary>
+        /// Gets or sets the version of the rule.
+        /// </summary>
+        public string Version { get; set; }
+
+        /// <summary>
         /// Gets or sets the creation date and time of the rule.
         /// </summary>
         public DateTimeOffset CreatedUtc { get; set; }

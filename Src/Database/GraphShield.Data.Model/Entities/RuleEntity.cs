@@ -44,7 +44,7 @@ namespace GraphShield.Data.Model.Entities
         /// <summary>
         /// Gets or sets the type of the rule.
         /// </summary>
-        public RuleType Type { get; set; }
+        public RuleType? Type { get; set; }
 
         /// <summary>
         /// Gets or sets the remote content of the rule.
@@ -68,6 +68,11 @@ namespace GraphShield.Data.Model.Entities
         #endregion Navigation
 
         #region Metadata
+
+        /// <summary>
+        /// Gets or sets the version of the rule.
+        /// </summary>
+        public string Version { get; set; }
 
         /// <summary>
         /// Gets or sets the creation timestamp of the rule.

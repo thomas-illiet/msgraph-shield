@@ -69,6 +69,9 @@ namespace GraphShield.Data.Configuration.Builders
                 .HasColumnName("request")
                 .IsRequired(false);
 
+            builder.Property(x => x.Version)
+                .HasColumnName("version");
+
             builder.Property(x => x.CreatedUtc)
                 .HasCreationTrackable();
 
