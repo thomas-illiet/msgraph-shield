@@ -1,27 +1,28 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
+
 namespace GraphShield.Ext.HealthCheck
 {
-
-
+    /// <summary>
+    /// Provides extension methods for adding health checks related to the Graph Identity Server.
+    /// </summary>
     public static class IdentityHealthCheck
     {
         /// <summary>
         /// Adds the graph identity server checks.
         /// </summary>
-        /// <param name="builder">The builder.</param>
+        /// <param name="builder">The health checks builder.</param>
+        /// <param name="configuration">The configuration.</param>
         public static IHealthChecksBuilder AddIdentityCheck(this IHealthChecksBuilder builder, IConfiguration configuration)
         {
-            // Create server uri
-            var tenantId = configuration.GetValue<Guid>("ClientAuthentication:TenantId");
-            if (tenantId == Guid.Empty)
-                throw new ArgumentException("Could not find a valid tenant identifier in the configuration.");
+            var authority = configuration.GetValue<string>("AuthenticationConfiguration:Authority");
+            if (string.IsNullOrEmpty(authority))
+                throw new ArgumentException("Could not find a valid authority in the configuration.");
 
-            // Add default endpoint
             builder.AddIdentityServer(
-                idSvrUri: new Uri($"https://login.microsoftonline.com/{tenantId}/v2.0"),
-                name: "GraphIdentity",
+                idSvrUri: new Uri(authority),
+                name: "Authentication",
                 failureStatus: HealthStatus.Unhealthy);
 
             return builder;
