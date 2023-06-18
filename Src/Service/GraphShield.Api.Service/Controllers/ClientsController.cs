@@ -60,6 +60,69 @@ namespace GraphShield.Api.Service.Controllers
             return Ok(entity);
         }
 
+        /// <summary>
+        /// Retrieves a paged list of profiles associated with a client.
+        /// </summary>
+        /// <param name="clientId">The identifier of the client.</param>
+        /// <param name="request">The SieveModel containing filtering and sorting parameters.</param>
+        /// <param name="cancellationToken">The cancellation token.</param>
+        [HttpGet("{clientId:Guid}/profiles")]
+        [SwaggerOperation(Tags = new[] { "🐤 Client Management" })]
+        [ProducesResponseType(typeof(PagedResponse<ProfileDto>), 200)]
+        [ProducesResponseType(typeof(NotFoundDto), 404)]
+        public async Task<IActionResult> ListProfileAsync(Guid clientId, [FromQuery] SieveModel request, CancellationToken cancellationToken)
+        {
+            var entity = await _clientData.ListProfileAsync(clientId, request, cancellationToken);
+            return Ok(entity);
+        }
+
+        /// <summary>
+        /// Retrieves a profile by its identifier associated with a client.
+        /// </summary>
+        /// <param name="clientId">The identifier of the client.</param>
+        /// <param name="profileId">The identifier of the profile.</param>
+        /// <param name="cancellationToken">The cancellation token.</param>
+        [HttpGet("{clientId:Guid}/profiles/{profileId:Guid}")]
+        [SwaggerOperation(Tags = new[] { "🐤 Client Management" })]
+        [ProducesResponseType(typeof(PagedResponse<ProfileDto>), 200)]
+        [ProducesResponseType(typeof(NotFoundDto), 404)]
+        public async Task<IActionResult> GetProfileAsync(Guid clientId, Guid profileId, CancellationToken cancellationToken)
+        {
+            var entity = await _clientData.GetProfileAsync(clientId, profileId, cancellationToken);
+            return Ok(entity);
+        }
+
+        /// <summary>
+        /// Adds a profile to a client.
+        /// </summary>
+        /// <param name="clientId">The identifier of the client.</param>
+        /// <param name="profileId">The identifier of the profile to add.</param>
+        /// <param name="cancellationToken">The cancellation token.</param>
+        [HttpPost("{clientId:Guid}/profiles/{profileId:Guid}")]
+        [SwaggerOperation(Tags = new[] { "🐤 Client Management" })]
+        [ProducesResponseType(202)]
+        [ProducesResponseType(typeof(NotFoundDto), 404)]
+        public async Task<IActionResult> AddProfileAsync(Guid clientId, Guid profileId, CancellationToken cancellationToken)
+        {
+            await _clientData.AddProfileAsync(clientId, profileId, cancellationToken);
+            return Accepted();
+        }
+
+        /// <summary>
+        /// Deletes a profile associated with a client.
+        /// </summary>
+        /// <param name="clientId">The identifier of the client.</param>
+        /// <param name="profileId">The identifier of the profile to delete.</param>
+        /// <param name="cancellationToken">The cancellation token.</param>
+        [HttpDelete("{clientId:Guid}/profiles/{profileId:Guid}")]
+        [SwaggerOperation(Tags = new[] { "🐤 Client Management" })]
+        [ProducesResponseType(202)]
+        [ProducesResponseType(typeof(NotFoundDto), 404)]
+        public async Task<IActionResult> DeleteProfileAsync(Guid clientId, Guid profileId, CancellationToken cancellationToken)
+        {
+            await _clientData.DeleteProfileAsync(clientId, profileId, cancellationToken);
+            return Accepted();
+        }
 
         /// <summary>
         /// Deletes a client by its identifier.

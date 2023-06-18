@@ -52,9 +52,14 @@ namespace GraphShield.Api.Service.Plumbings.Data
         public async Task<ClientDto?> GetAsync(Guid clientId, CancellationToken cancellationToken)
         {
             var query = _dataContext.Set<ClientEntity>().AsNoTracking();
-            return await query.Where(x => x.Id == clientId)
+            var entity = await query.Where(x => x.Id == clientId)
                 .ProjectTo<ClientDto>(_mapper.ConfigurationProvider)
-                .FirstOrDefaultAsync(cancellationToken);
+                .SingleOrDefaultAsync(cancellationToken);
+
+            if (entity == null)
+                throw new NotFoundException("The requested profile was not found in the system");
+
+            return entity;
         }
 
         /// <summary>
@@ -64,11 +69,95 @@ namespace GraphShield.Api.Service.Plumbings.Data
         /// <param name="cancellationToken">The cancellation token.</param>
         public async Task DeleteAsync(Guid clientId, CancellationToken cancellationToken)
         {
-            var entity = await _dataContext.Set<ClientEntity>().FirstOrDefaultAsync(x => x.Id == clientId, cancellationToken);
+            var entity = await _dataContext.Set<ClientEntity>().SingleOrDefaultAsync(x => x.Id == clientId, cancellationToken);
             if (entity == null)
                 throw new NotFoundException("The requested client was not found in the system.");
 
             _dataContext.Remove(entity);
+            await _dataContext.SaveChangesAsync(cancellationToken);
+        }
+
+        /// <summary>
+        /// Retrieves a paged list of profiles for a specific client.
+        /// </summary>
+        /// <param name="clientId">The identifier of the client.</param>
+        /// <param name="request">The SieveModel containing filtering and sorting parameters.</param>
+        /// <param name="cancellationToken">The cancellation token.</param>b
+        public async Task<PagedResponse<ProfileDto>> ListProfileAsync(Guid clientId, SieveModel request, CancellationToken cancellationToken)
+        {
+            var query = _dataContext.Set<ProfileEntity>().AsNoTracking()
+                .Include(x => x.Clients)
+                .Where(x => x.Clients.Any(x => x.Id == clientId));
+            return await query.ToPagedAsync<ProfileEntity, ProfileDto>(_sieve, _mapper, request, cancellationToken);
+        }
+
+
+        /// <summary>
+        /// Retrieves a profile by its identifier for a specific client.
+        /// </summary>
+        /// <param name="clientId">The identifier of the client.</param>
+        /// <param name="profileId">The identifier of the profile to retrieve.</param>
+        /// <param name="cancellationToken">The cancellation token.</param>
+        public async Task<ProfileDto> GetProfileAsync(Guid clientId, Guid profileId, CancellationToken cancellationToken)
+        {
+            var client = await _dataContext.Set<ClientEntity>()
+                .Include(x => x.Profiles)
+                .SingleOrDefaultAsync(x => x.Id == clientId, cancellationToken);
+            if (client == null)
+                throw new NotFoundException("The requested client was not found in the system.");
+
+            var profile = client.Profiles?.FirstOrDefault(x => x.Id == profileId);
+            if (profile == null)
+                throw new BadRequestException("The requested profile is not associated with the client.");
+
+            return _mapper.Map<ProfileDto>(profile);
+        }
+
+        /// <summary>
+        /// Adds a profile to a client.
+        /// </summary>
+        /// <param name="clientId">The identifier of the client.</param>
+        /// <param name="profileId">The identifier of the profile to add.</param>
+        /// <param name="cancellationToken">The cancellation token.</param>
+        public async Task AddProfileAsync(Guid clientId, Guid profileId, CancellationToken cancellationToken)
+        {
+            var client = await _dataContext.Set<ClientEntity>()
+                .Include(x => x.Profiles)
+                .SingleOrDefaultAsync(x => x.Id == clientId, cancellationToken);
+            if (client == null)
+                throw new NotFoundException("The requested client was not found in the system.");
+
+            var profile = await _dataContext.Set<ProfileEntity>()
+                .SingleOrDefaultAsync(x => x.Id == profileId, cancellationToken);
+            if (profile == null)
+                throw new NotFoundException("The requested profile was not found in the system.");
+
+            if (client.Profiles?.Any(x => x.Id == profileId) == true)
+                throw new ConflictException("The requested profile is already associated with the client.");
+
+            client.Profiles!.Add(profile);
+            await _dataContext.SaveChangesAsync(cancellationToken);
+        }
+
+        /// <summary>
+        /// Deletes a profile from a client.
+        /// </summary>
+        /// <param name="clientId">The identifier of the client.</param>
+        /// <param name="profileId">The identifier of the profile to delete.</param>
+        /// <param name="cancellationToken">The cancellation token.</param>
+        public async Task DeleteProfileAsync(Guid clientId, Guid profileId, CancellationToken cancellationToken)
+        {
+            var client = await _dataContext.Set<ClientEntity>()
+                .Include(x => x.Profiles)
+                .SingleOrDefaultAsync(x => x.Id == clientId, cancellationToken);
+            if (client == null)
+                throw new NotFoundException("The requested client was not found in the system.");
+
+            var profile = client.Profiles?.FirstOrDefault(x => x.Id == profileId);
+            if (profile == null)
+                throw new BadRequestException("The requested profile is not associated with the client.");
+
+            client.Profiles!.Remove(profile);
             await _dataContext.SaveChangesAsync(cancellationToken);
         }
     }
