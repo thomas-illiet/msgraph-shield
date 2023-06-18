@@ -20,8 +20,5 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v2
 
-      - name: Build API
-        run: dotnet build Src/Product/GraphShield.Api.Service/GraphShield.Api.Service.csproj
-
-      - name: Build Proxy
-        run: dotnet build Src/Product/GraphShield.Proxy.Service/GraphShield.Proxy.Service.csproj
+      - name: Build Solution
+        run: dotnet build GraphShield.sln
