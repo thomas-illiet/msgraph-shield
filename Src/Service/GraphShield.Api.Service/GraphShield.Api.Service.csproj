@@ -26,6 +26,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Database\GraphShield.Data.Shared\GraphShield.Data.Shared.csproj" />
     <ProjectReference Include="..\..\Database\GraphShield.Data\GraphShield.Data.csproj" />
+    <ProjectReference Include="..\..\Extension\GraphShield.Ext.HealthCheck\GraphShield.Ext.HealthCheck.csproj" />
   </ItemGroup>
 
   <ItemGroup>

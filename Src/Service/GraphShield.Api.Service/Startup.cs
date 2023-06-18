@@ -10,6 +10,7 @@ using GraphShield.Data.Shared.DbContexts;
 using Microsoft.AspNetCore.DataProtection;
 using System.Reflection;
 using System.Text.Json.Serialization;
+using GraphShield.Ext.HealthCheck;
 
 namespace GraphShield.Api.Service
 {
@@ -52,6 +53,8 @@ namespace GraphShield.Api.Service
                 .SetApplicationName(DataProtectionConsts.ApplicationName)
                 .PersistKeysToDbContext<DataProtectionDbContext>();
 
+            services.AddHealthChecks(_configuration);
+
             services.AddTransient<ClientDataService>();
             services.AddTransient<ProfileDataService>();
         }
@@ -78,6 +81,7 @@ namespace GraphShield.Api.Service
             // Endpoint Configuration
             app.UseEndpoints(endpoints =>
             {
+                endpoints.UseHealthChecks();
                 endpoints.MapControllers();
             });
         }
