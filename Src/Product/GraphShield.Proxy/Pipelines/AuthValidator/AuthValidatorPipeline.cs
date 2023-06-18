@@ -92,7 +92,7 @@ namespace GraphShield.Proxy.Pipelines.AuthValidator
             }
             catch (SecurityTokenException ex)
             {
-                throw new UnauthorizedException(ex,"Failed to validate the authorization token.");
+                throw new UnauthorizedException(ex, "Failed to validate the authorization token.");
             }
             catch (Exception ex)
             {

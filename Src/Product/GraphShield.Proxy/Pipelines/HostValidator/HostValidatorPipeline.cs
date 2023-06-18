@@ -1,14 +1,10 @@
 ﻿using GraphShield.Proxy.Exceptions;
+using GraphShield.Proxy.Extensions;
 using GraphShield.Proxy.Models;
 using GraphShield.Proxy.Plumbings.Pipeline;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-using GraphShield.Proxy.Extensions;
 using Titanium.Web.Proxy.EventArguments;
 
 namespace GraphShield.Proxy.Pipelines.HostValidator

@@ -6,6 +6,5 @@ namespace GraphShield.Proxy.Pipelines.Diagnostic
     /// Pipeline interface for diagnostic pipelines.
     /// </summary>
     public interface IDiagnosticPipeline : IPipeline
-    {
-    }
+    { }
 }

@@ -1,6 +1,4 @@
 ﻿using GraphShield.Proxy.Plumbings.Pipeline;
-using System.Threading.Tasks;
-using Titanium.Web.Proxy.EventArguments;
 
 namespace GraphShield.Proxy.Pipelines.HostValidator
 {
