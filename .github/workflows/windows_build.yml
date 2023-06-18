@@ -23,7 +23,12 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v2
 
-      - name: Set up .NET Core
+      - name: Run dotnet format
+        uses: xt0rted/dotnet-format@v1
+        with:
+          only-changed-files: "true"
+
+      - name: Set up dotnet
         uses: actions/setup-dotnet@v3
         with:
           dotnet-version: ${{ env.DOTNET_VERSION }}
