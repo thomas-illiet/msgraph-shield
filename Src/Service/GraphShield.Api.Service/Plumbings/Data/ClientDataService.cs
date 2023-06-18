@@ -1,0 +1,75 @@
+﻿using AutoMapper;
+using AutoMapper.QueryableExtensions;
+using GraphShield.Api.Service.Plumbings.Data.Models;
+using GraphShield.Api.Service.Plumbings.Exceptions;
+using GraphShield.Api.Service.Plumbings.Sieve;
+using GraphShield.Data.Model.Entities;
+using GraphShield.Data.Shared.DbContexts;
+using Microsoft.EntityFrameworkCore;
+using Sieve.Models;
+using Sieve.Services;
+
+namespace GraphShield.Api.Service.Plumbings.Data
+{
+    /// <summary>
+    /// Service for accessing and manipulating client data.
+    /// </summary>
+    public class ClientDataService
+    {
+        private readonly DataConfigDbContext _dataContext;
+        private readonly ISieveProcessor _sieve;
+        private readonly IMapper _mapper;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ClientDataService"/> class.
+        /// </summary>
+        /// <param name="dataContext">The data context for accessing the database.</param>
+        /// <param name="sieve">The Sieve processor for filtering and sorting data.</param>
+        /// <param name="mapper">The AutoMapper instance for object mapping.</param>
+        public ClientDataService(DataConfigDbContext dataContext, ISieveProcessor sieve, IMapper mapper)
+        {
+            _dataContext = dataContext ?? throw new ArgumentNullException(nameof(dataContext));
+            _sieve = sieve ?? throw new ArgumentNullException(nameof(sieve));
+            _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
+        }
+
+        /// <summary>
+        /// Retrieves a paged list of clients based on the provided SieveModel.
+        /// </summary>
+        /// <param name="request">The SieveModel containing filtering and sorting parameters.</param>
+        /// <param name="cancellationToken">The cancellation token.</param>
+        public async Task<PagedResponse<ClientDto>> ListAsync(SieveModel request, CancellationToken cancellationToken)
+        {
+            var query = _dataContext.Set<ClientEntity>().AsNoTracking();
+            return await query.ToPagedAsync<ClientEntity, ClientDto>(_sieve, _mapper, request, cancellationToken);
+        }
+
+        /// <summary>
+        /// Retrieves a client by its identifier.
+        /// </summary>
+        /// <param name="clientId">The identifier of the client to retrieve.</param>
+        /// <param name="cancellationToken">The cancellation token.</param>
+        public async Task<ClientDto?> GetAsync(Guid clientId, CancellationToken cancellationToken)
+        {
+            var query = _dataContext.Set<ClientEntity>().AsNoTracking();
+            return await query.Where(x => x.Id == clientId)
+                .ProjectTo<ClientDto>(_mapper.ConfigurationProvider)
+                .FirstOrDefaultAsync(cancellationToken);
+        }
+
+        /// <summary>
+        /// Deletes a client by its identifier.
+        /// </summary>
+        /// <param name="clientId">The identifier of the client to delete.</param>
+        /// <param name="cancellationToken">The cancellation token.</param>
+        public async Task DeleteAsync(Guid clientId, CancellationToken cancellationToken)
+        {
+            var entity = await _dataContext.Set<ClientEntity>().FirstOrDefaultAsync(x => x.Id == clientId, cancellationToken);
+            if (entity == null)
+                throw new NotFoundException("The requested client was not found in the system.");
+
+            _dataContext.Remove(entity);
+            await _dataContext.SaveChangesAsync(cancellationToken);
+        }
+    }
+}
