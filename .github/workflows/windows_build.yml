@@ -29,13 +29,12 @@ jobs:
           dotnet-version: ${{ env.DOTNET_VERSION }}
           include-prerelease: true
 
-      - name: Set up dependency caching for faster builds
+      - name: Set up dependency caching
         uses: actions/cache@v3
         with:
           path: ~/.nuget/packages
-          key: ${{ runner.os }}-nuget-${{ hashFiles('**/packages.lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-nuget-
+          key: ${{ runner.os }}-nuget
+          restore-keys: ${{ runner.os }}-nuget
 
       - name: Build Solution
         run: dotnet build GraphShield.sln
