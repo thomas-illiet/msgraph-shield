@@ -1,0 +1,27 @@
+name: .NET Core
+
+on:
+  push:
+    branches:
+        - develop
+        - beta
+        - main
+  pull_request:
+    branches:
+        - develop
+        - beta
+        - main
+
+jobs:
+  build:
+    name: Build
+    runs-on: windows-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+
+      - name: Build API
+        run: dotnet build Src/GraphShield.Api.Service/GraphShield.Api.Service.csproj
+
+      - name: Build Proxy
+        run: dotnet build Src/GraphShield.Proxy.Service/GraphShield.Proxy.Service.csproj
