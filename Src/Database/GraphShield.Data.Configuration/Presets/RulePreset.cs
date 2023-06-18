@@ -20,6 +20,7 @@ namespace GraphShield.Data.Configuration.Presets
                 Type = RuleType.User,
                 Pattern = "/v1/users/*",
                 Method = RuleMethod.Get,
+                Version = "1.0",
                 CreatedUtc = new DateTime(2022, 9, 30),
             });
         }

@@ -1,7 +1,6 @@
 ﻿using GraphShield.Data.Configuration.Extensions;
 using GraphShield.Data.Configuration.Presets;
 using GraphShield.Data.Model.Entities;
-using GraphShield.Data.Model.Enums;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System.Text.Json;
