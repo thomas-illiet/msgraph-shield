@@ -1,7 +1,5 @@
 ﻿using GraphShield.Data.Configuration.Builders;
-using GraphShield.Data.Configuration.Builders.Linkings;
 using GraphShield.Data.Model.Entities;
-using GraphShield.Data.Model.Linkings;
 using LicenseManager.Api.Data.Shared.Extensions;
 using Microsoft.EntityFrameworkCore;
 
