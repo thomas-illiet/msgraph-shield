@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
-using MysqlMigrationAssembly = MSGraphShield.Data.Mysql.Helpers.MigrationAssembly;
+using MysqlMigrationAssembly = MSGraphShield.Data.MySql.Helpers.MigrationAssembly;
 using PostgreSQLMigrationAssembly = MSGraphShield.Data.PostgreSQL.Helpers.MigrationAssembly;
 using SqlMigrationAssembly = MSGraphShield.Data.SQLServer.Helpers.MigrationAssembly;
 

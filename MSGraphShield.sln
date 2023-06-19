@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MSGraphShield.Data.Configur
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MSGraphShield.Data.Model", "Src\Database\MSGraphShield.Data.Model\MSGraphShield.Data.Model.csproj", "{0E495B8D-FA60-404D-8268-8E4D27E5254B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MSGraphShield.Data.Mysql", "Src\Database\MSGraphShield.Data.Mysql\MSGraphShield.Data.Mysql.csproj", "{B00F1338-17E9-4111-9055-866E6862355C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MSGraphShield.Data.MySql", "Src\Database\MSGraphShield.Data.MySql\MSGraphShield.Data.MySql.csproj", "{B00F1338-17E9-4111-9055-866E6862355C}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MSGraphShield.Data.PostgreSQL", "Src\Database\MSGraphShield.Data.PostgreSQL\MSGraphShield.Data.PostgreSQL.csproj", "{D9C8D6C5-4E9A-42FB-93F7-FB465215FABD}"
 EndProject

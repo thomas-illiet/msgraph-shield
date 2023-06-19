@@ -15,7 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\MSGraphShield.Data.Mysql\MSGraphShield.Data.Mysql.csproj" />
+    <ProjectReference Include="..\MSGraphShield.Data.MySql\MSGraphShield.Data.MySql.csproj" />
     <ProjectReference Include="..\MSGraphShield.Data.PostgreSQL\MSGraphShield.Data.PostgreSQL.csproj" />
     <ProjectReference Include="..\MSGraphShield.Data.SQLServer\MSGraphShield.Data.SQLServer.csproj" />
   </ItemGroup>

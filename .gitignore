@@ -26,8 +26,8 @@ msbuild.wrn
 .vs/
 
 # Avoid adding database mgiration by mistake
-Src/Database/MSGraphShield.Data.Mysql/Migrations/DataProtection/*
-Src/Database/MSGraphShield.Data.Mysql/Migrations/DataConfig/*
+Src/Database/MSGraphShield.Data.MySql/Migrations/DataProtection/*
+Src/Database/MSGraphShield.Data.MySql/Migrations/DataConfig/*
 Src/Database/MSGraphShield.Data.PostgreSQL/Migrations/DataProtection/*
 Src/Database/MSGraphShield.Data.PostgreSQL/Migrations/DataConfig/*
 Src/Database/MSGraphShield.Data.SQLServer/Migrations/DataProtection/*
