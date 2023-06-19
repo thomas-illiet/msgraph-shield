@@ -37,4 +37,4 @@ jobs:
           restore-keys: ${{ runner.os }}-nuget
 
       - name: Build Solution
-        run: dotnet build GraphShield.sln
+        run: dotnet build MSGraphShield.sln

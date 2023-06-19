@@ -1,12 +1,12 @@
 # MSGraph-Shield Solution
 
-[![.NET Core](https://github.com/thomas-illiet/graphshield-solution/actions/workflows/windows_build.yml/badge.svg?branch=main)](https://github.com/thomas-illiet/graphshield-solution/actions/workflows/windows_build.yml)
+[![.NET Core](https://github.com/thomas-illiet/msgraph-shield/actions/workflows/windows_build.yml/badge.svg)](https://github.com/thomas-illiet/msgraph-shield/actions/workflows/windows_build.yml)
 
 > Microsoft Graph Proxy Server authorizations: another layer of abstraction!
 
 ## Overview
 
-GraphShield empowers you to establish a robust permission layer for your company. With its intuitive rule configuration, you'll harness the full power of the shield engine with every request. This ensures both the agility of your company and the protection of internal data.
+MSGraph Shield empowers you to establish a robust permission layer for your company. With its intuitive rule configuration, you'll harness the full power of the shield engine with every request. This ensures both the agility of your company and the protection of internal data.
 
 ## Features
 
