@@ -14,6 +14,46 @@ MSGraph Shield empowers you to establish a robust permission layer for your comp
 * 🤝 **Compatible:** Works with all Microsoft Graph API Servers.
 * 🎯 **Per-Type or Per-Field:** Write permissions for your schema, types or specific fields (check the example below).
 
+## EF Core & Data Access
+
+The solution uses these `DbContexts`:
+
+* `DataConfigDbContext`: for product configuration store
+* `DataProtectionDbContext`: for dataprotection
+
+### Run entity framework migrations:
+
+> NOTE: Initial migrations are a part of the repository.
+
+  - It is possible to use powershell script in folder `build/add-migrations.ps1`.
+  - This script take two arguments:
+    - --migration (migration name)
+    - --migrationProviderName (provider type - available choices: All, SqlServer, MySql, PostgreSQL)
+  
+- For example: 
+`.\add-migrations.ps1 -migration DbInit -migrationProviderName SqlServer`
+
+### Available database providers:
+
+- SqlServer
+- MySql
+- PostgreSQL
+
+> It is possible to switch the database provider via `appsettings.json`:
+```json
+"DatabaseProviderConfiguration": {
+    "ProviderType": "SqlServer" 
+}
+```
+
+### Connection strings samples for available db providers
+
+**PostgreSQL**: 
+> Server=localhost;Port=5432;Database=IdentityServer4Admin;User Id=sa;Password=#;
+
+**MySql:** 
+> server=localhost;database=IdentityServer4Admin;user=root;password=#
+
 ## Contributing
 
 We are always looking for people to help us grow `msgraphql-shield`! If you have an issue, feature request, or pull request, let us know!
