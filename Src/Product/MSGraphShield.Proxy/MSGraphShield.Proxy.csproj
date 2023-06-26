@@ -24,7 +24,7 @@
 
   <ItemGroup>
     <!-- Base package to create a proxy service -->
-    <PackageReference Include="Microsoft.OData.Core" Version="7.16.0" />
+    <PackageReference Include="Microsoft.OData.Core" Version="7.17.0" />
     <PackageReference Include="Titanium.Web.Proxy" Version="3.2.0" />
     <!-- Packages for the configuration provider -->
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="7.0.0" />
